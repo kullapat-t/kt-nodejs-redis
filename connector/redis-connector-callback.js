@@ -14,7 +14,6 @@ const validateDate = (userId, date, callback) => {
             if (date == currentDate) {
                 console.log("> do nothing (same date)");
                 callback({
-                    source: 'api',
                     msg: `do nothing (same date: [${date}])`,
                     data: { userId: `${userId}`, date: `${date}` }
                 });
@@ -24,7 +23,6 @@ const validateDate = (userId, date, callback) => {
             date > currentDate ?
                 saveDate(userId, date, callback):
                 callback({
-                    source: 'api',
                     msg: `current date [${currentDate}] is greater than req date [${date}]`,
                     data: { userId: `${userId}`, date: `${date}` }
                 })
@@ -40,7 +38,6 @@ const saveDate = (userId, date, callback) => {
     client.set(userId, date, function (err, reply) {
         if (err) { console.log("error: " + err); return; }
         callback({
-            source: 'api',
             msg: `save new date [${date}]`,
             data: { userId: `${userId}`, date: `${date}` }
         })
