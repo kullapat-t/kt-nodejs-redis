@@ -12,14 +12,13 @@ const validateDate = (userId, date) => {
             console.log(`date: ${date}, currentDate: ${currentDate}`);
 
             if (date == currentDate) {
-                console.log("> do nothing (same date)");
+                console.log(`do nothing (same date: [${date}])`);
                 return
-                // TODO return { source: 'api', data: { userId: `${userId}`, date: `${date}` }}
             }
 
             date > currentDate ?
                 saveDate(userId, date):
-                console.log("> throw new Error(\"User already login\")")
+                console.log(`> current date [${currentDate}] is greater than req date [${date}]`)
         } else {
             console.log(`no date for ${userId}`);
             saveDate(userId, date)
@@ -32,7 +31,6 @@ const saveDate = (userId, date) => {
     client.set(userId, date, function (err, reply) {
         if (err) { console.log("error: " + err); }
         return
-        // TODO return { source: 'api', data: { userId: `${userId}`, date: `${date}` }}
     });
 };
 
