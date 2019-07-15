@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon .",
-    "test": "jest"
+    "test": "jest",
+    "preCommit": "pre-commit"
   },
+  "pre-commit": [
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kullapat-t/kt-nodejs-redis.git"
@@ -23,6 +27,7 @@
   },
   "devDependencies": {
     "jest": "^24.8.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "pre-commit": "^1.2.2"
   }
 }
