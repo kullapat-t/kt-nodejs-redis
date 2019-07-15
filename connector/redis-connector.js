@@ -1,8 +1,7 @@
 const redis = require("redis"), client = redis.createClient();
 
-client.on("error", function (err) {
-    console.log("Error " + err);
-});
+client.on('connect', () => { console.log('Redis client connected') });
+client.on('error', err => { console.error(`Something went wrong: ${err}`) });
 
 const validateDate = (userId, date) => {
     console.log(`validate userId: [${userId}] . . .`);
@@ -28,8 +27,8 @@ const validateDate = (userId, date) => {
 
 const saveDate = (userId, date) => {
     console.log(`> save new date for ${userId} . . .`);
-    client.set(userId, date, function (err, reply) {
-        if (err) { console.log("error: " + err); }
+    client.set(userId, date, (err) => {
+        if (err) { console.error("error: " + err); }
         return
     });
 };

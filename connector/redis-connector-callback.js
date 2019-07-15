@@ -1,8 +1,7 @@
 const redis = require("redis"), client = redis.createClient();
 
-client.on("error", function (err) {
-    console.log("Error " + err);
-});
+client.on('connect', () => { console.log('Redis client connected') });
+client.on('error', err => { console.error(`Something went wrong: ${err}`) });
 
 const validateDate = (userId, date, callback) => {
     console.log(`validate userId: [${userId}] . . .`);
@@ -24,7 +23,7 @@ const validateDate = (userId, date, callback) => {
                 saveDate(userId, date, callback):
                 callback({
                     msg: `current date [${currentDate}] is greater than req date [${date}]`,
-                    data: { userId: `${userId}`, date: `${date}` }
+                    data: { userId: userId, date: date }
                 })
         } else {
             console.log(`no date for ${userId}`);
@@ -35,11 +34,11 @@ const validateDate = (userId, date, callback) => {
 
 const saveDate = (userId, date, callback) => {
     console.log(`> save new date for ${userId} . . .`);
-    client.set(userId, date, function (err, reply) {
-        if (err) { console.log("error: " + err); return; }
+    client.set(userId, date, (err) => {
+        if (err) { console.error("error: " + err); return; }
         callback({
             msg: `save new date [${date}]`,
-            data: { userId: `${userId}`, date: `${date}` }
+            data: { userId: userId, date: date }
         })
     });
 };

@@ -8,6 +8,7 @@ const port = 3000
 app.get('/con', (req, res) => {
     // http://localhost:3000/con?id=5d21d19cdf68f60d202c1dac&date=1562660653
     res.send(con.validateDate(req.query.id, req.query.date))
+    console.log("------ end ------")
 });
 
 app.get('/con-cb', (req, res) => {
@@ -15,14 +16,16 @@ app.get('/con-cb', (req, res) => {
     conCb.validateDate(req.query.id, req.query.date, (response) => {
         res.send(response)
     })
+    console.log("------ end ------")
 });
 
-app.get('/con-pm', (req, res) => {
+app.get('/con-pm', async (req, res) => {
     // http://localhost:3000/con-pm?id=5d21d19cdf68f60d202c1dac&date=1562660653
-    conPm.validateDate(req.query.id, req.query.date)
+    await conPm.validateDate(req.query.id, req.query.date)
         .then(response => {
             res.send(response)
         })
+    console.log("------ end ------")
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
